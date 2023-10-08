@@ -52,3 +52,5 @@
 #ifndef ST7920_DELAY_3
   #define ST7920_DELAY_3 DELAY_NS(125)
 #endif
+
+#warning "**** pins_MELZI_MALYAN.h: Settings from this file are honored ****"

@@ -620,7 +620,8 @@
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
                                       // Standard M150 17T MXL on X and Y
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 3200/34.544, 3200/34.544, 1600, 103.00 }
+// original for Malyan M150 // #define DEFAULT_AXIS_STEPS_PER_UNIT   { 3200/34.544, 3200/34.544, 1600, 103.00 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 3200/34.544, 3200/34.544, 1600, 100.00 }
 
 // Other common M150 values:
 // 16T MXL on X and Y
@@ -899,8 +900,8 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 206
-#define Y_BED_SIZE 220
+#define X_BED_SIZE 202
+#define Y_BED_SIZE 215
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
