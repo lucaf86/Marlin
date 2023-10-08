@@ -1,0 +1,43 @@
+
+>>> M503 S0
+SENDING:M503 S0
+  G21    ; Units in mm
+  M149 C ; Units in Celsius
+  M200 D3.00
+  M200 D0
+  M92 X92.64 Y92.64 Z1600.00 E100.00
+  M203 X300.00 Y300.00 Z5.00 E25.00
+  M201 X800 Y800 Z100 E10000
+  M204 P800.00 R3000.00 T700.00
+  M205 S0.00 T0.00 B20000 X8.00 Y8.00 Z0.40 E5.00
+  M206 X0.00 Y0.00 Z0.00
+  M145 S0 H205 B50 F0
+  M145 S1 H235 B80 F0
+  M301 P25.20 I0.99 D114.00
+  
+  
+  
+  >>> M503
+SENDING:M503
+echo:  G21    ; Units in mm
+echo:  M149 C ; Units in Celsius
+echo:Filament settings: Disabled
+echo:  M200 D3.00
+echo:  M200 D0
+echo:Steps per unit:
+echo:  M92 X92.64 Y92.64 Z1600.00 E100.00
+echo:Maximum feedrates (units/s):
+echo:  M203 X300.00 Y300.00 Z5.00 E25.00
+echo:Maximum Acceleration (units/s2):
+echo:  M201 X800 Y800 Z100 E10000
+echo:Acceleration (units/s2): P<print_accel> R<retract_accel> T<travel_accel>
+echo:  M204 P800.00 R3000.00 T700.00
+echo:Advanced: S<min_feedrate> T<min_travel_feedrate> B<min_segment_time_us> X<max_xy_jerk> Z<max_z_jerk> E<max_e_jerk>
+echo:  M205 S0.00 T0.00 B20000 X8.00 Y8.00 Z0.40 E5.00
+echo:Home offset:
+echo:  M206 X0.00 Y0.00 Z0.00
+echo:Material heatup parameters:
+echo:  M145 S0 H205 B50 F0
+echo:  M145 S1 H235 B80 F0
+echo:PID settings:
+echo:  M301 P25.20 I0.99 D114.00
