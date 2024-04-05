@@ -21,6 +21,8 @@
  */
 #pragma once
 
+#define CONFIG_EXAMPLES_DIR "Malyan/M150"
+
 /**
  * Configuration_adv.h
  *
@@ -67,7 +69,7 @@
  *
  * Set this value to 0 to fail on the first error to occur.
  */
-#define THERMOCOUPLE_MAX_ERRORS 15
+#define THERMOCOUPLE_MAX_ERRORS 2
 
 //
 // Custom Thermistor 1000 parameters
@@ -305,8 +307,8 @@
  * THERMAL_PROTECTION_HYSTERESIS and/or THERMAL_PROTECTION_PERIOD
  */
 #if ALL(HAS_HOTEND, THERMAL_PROTECTION_HOTENDS)
-  #define THERMAL_PROTECTION_PERIOD        40 // (seconds)
-  #define THERMAL_PROTECTION_HYSTERESIS     4 // (°C)
+  #define THERMAL_PROTECTION_PERIOD 60        // (seconds)
+  #define THERMAL_PROTECTION_HYSTERESIS 5     // (°C)
 
   //#define ADAPTIVE_FAN_SLOWING              // Slow down the part-cooling fan if the temperature drops
   #if ENABLED(ADAPTIVE_FAN_SLOWING)
@@ -328,7 +330,7 @@
    * and/or decrease WATCH_TEMP_INCREASE. WATCH_TEMP_INCREASE should not be set
    * below 2.
    */
-  #define WATCH_TEMP_PERIOD  40               // (seconds)
+  #define WATCH_TEMP_PERIOD  20               // (seconds)
   #define WATCH_TEMP_INCREASE 2               // (°C)
 #endif
 
@@ -336,7 +338,7 @@
  * Thermal Protection parameters for the bed are just as above for hotends.
  */
 #if TEMP_SENSOR_BED && ENABLED(THERMAL_PROTECTION_BED)
-  #define THERMAL_PROTECTION_BED_PERIOD        20 // (seconds)
+  #define THERMAL_PROTECTION_BED_PERIOD       120 // (seconds)
   #define THERMAL_PROTECTION_BED_HYSTERESIS     2 // (°C)
 
   /**
@@ -480,7 +482,7 @@
  * Enable Autotemp Mode with M104/M109 F<factor> S<mintemp> B<maxtemp>.
  * Disable by sending M104/M109 with no F parameter (or F0 with AUTOTEMP_PROPORTIONAL).
  */
-#define AUTOTEMP
+//#define AUTOTEMP
 #if ENABLED(AUTOTEMP)
   #define AUTOTEMP_OLDWEIGHT    0.98  // Factor used to weight previous readings (0.0 < value < 1.0)
   #define AUTOTEMP_MIN          210
@@ -1074,7 +1076,7 @@
 
   // On a 300mm bed a 5% grade would give a misalignment of ~1.5cm
   #define G34_MAX_GRADE              5    // (%) Maximum incline that G34 will handle
-  #define Z_STEPPER_ALIGN_ITERATIONS 5    // Number of iterations to apply during alignment
+  #define Z_STEPPER_ALIGN_ITERATIONS 3    // Number of iterations to apply during alignment
   #define Z_STEPPER_ALIGN_ACC        0.02 // Stop iterating early if the accuracy is better than this
   #define RESTORE_LEVELING_AFTER_G34      // Restore leveling after G34 is done?
   // After G34, re-home Z (G28 Z) or just calculate it from the last probe heights?
@@ -1484,8 +1486,8 @@
 // Change values more rapidly when the encoder is rotated faster
 #define ENCODER_RATE_MULTIPLIER
 #if ENABLED(ENCODER_RATE_MULTIPLIER)
-  #define ENCODER_10X_STEPS_PER_SEC   30  // (steps/s) Encoder rate for 10x speed
-  #define ENCODER_100X_STEPS_PER_SEC  80  // (steps/s) Encoder rate for 100x speed
+  #define ENCODER_10X_STEPS_PER_SEC   75  // (steps/s) Encoder rate for 10x speed
+  #define ENCODER_100X_STEPS_PER_SEC 300  // (steps/s) Encoder rate for 100x speed
 #endif
 
 // Play a beep when the feedrate is changed from the Status Screen
@@ -1505,7 +1507,7 @@
  *  - The difference is used to set the probe Z offset.
  */
 #if HAS_BED_PROBE && ANY(HAS_MARLINUI_MENU, HAS_TFT_LVGL_UI)
-  //#define PROBE_OFFSET_WIZARD
+  #define PROBE_OFFSET_WIZARD       // Add a Probe Z Offset calibration option to the LCD menu
   #if ENABLED(PROBE_OFFSET_WIZARD)
     /**
      * Enable to init the Probe Z-Offset when starting the Wizard.
@@ -1515,7 +1517,7 @@
     //#define PROBE_OFFSET_WIZARD_START_Z -4.0
 
     // Set a convenient position to do the calibration (probing point and nozzle/bed-distance)
-    //#define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER }
+    #define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER }
   #endif
 #endif
 
@@ -1723,7 +1725,7 @@
   //#define SD_DETECT_STATE HIGH
 
   //#define SD_IGNORE_AT_STARTUP            // Don't mount the SD card when starting up
-  //#define SDCARD_READONLY                 // Read-only SD card (to save over 2K of flash)
+  #define SDCARD_READONLY                 // Read-only SD card (to save over 2K of flash)
 
   //#define GCODE_REPEAT_MARKERS            // Enable G-code M808 to set repeat markers and do looping
 
@@ -1738,13 +1740,13 @@
 
   #define SD_MENU_CONFIRM_START             // Confirm the selected SD file before printing
 
-  //#define NO_SD_AUTOSTART                 // Remove auto#.g file support completely to save some Flash, SRAM
+  #define NO_SD_AUTOSTART                 // Remove auto#.g file support completely to save some Flash, SRAM
   //#define MENU_ADDAUTOSTART               // Add a menu option to run auto#.g files
 
   //#define ONE_CLICK_PRINT                 // Prompt to print the newest file on inserted media
   //#define BROWSE_MEDIA_ON_INSERT          // Open the file browser when media is inserted
 
-  //#define MEDIA_MENU_AT_TOP               // Force the media menu to be listed on the top of the main menu
+  #define MEDIA_MENU_AT_TOP               // Force the media menu to be listed on the top of the main menu
 
   #define EVENT_GCODE_SD_ABORT "G28XY"      // G-code to run on SD Abort Print (e.g., "G28XY" or "G27")
 
@@ -2307,9 +2309,9 @@
   //#define BABYSTEP_DISPLAY_TOTAL          // Display total babysteps since last G28
 
   //#define BABYSTEP_ZPROBE_OFFSET          // Combine M851 Z and Babystepping
-  #if ENABLED(BABYSTEP_ZPROBE_OFFSET)
-    //#define BABYSTEP_HOTEND_Z_OFFSET      // For multiple hotends, babystep relative Z offsets
-    //#define BABYSTEP_GFX_OVERLAY          // Enable graphical overlay on Z-offset editor
+      #if ENABLED(BABYSTEP_ZPROBE_OFFSET)
+      //#define BABYSTEP_HOTEND_Z_OFFSET      // For multiple hotends, babystep relative Z offsets
+        //#define BABYSTEP_GFX_OVERLAY          // Enable graphical overlay on Z-offset editor
   #endif
 #endif
 
@@ -2373,9 +2375,9 @@
  * Override if the automatically selected points are inadequate.
  */
 #if NEEDS_THREE_PROBE_POINTS
-  //#define PROBE_PT_1 {  15, 180 }   // (mm) { x, y }
-  //#define PROBE_PT_2 {  15,  20 }
-  //#define PROBE_PT_3 { 170,  20 }
+  //#define PROBE_PT_1 {  50, 150 }   // (mm) { x, y }
+  //#define PROBE_PT_2 {  50,  50 }
+  //#define PROBE_PT_3 { 150,  50 }
 #endif
 
 /**
@@ -2420,16 +2422,16 @@
  * Repeatedly attempt G29 leveling until it succeeds.
  * Stop after G29_MAX_RETRIES attempts.
  */
-//#define G29_RETRY_AND_RECOVER
+//   #define G29_RETRY_AND_RECOVER
 #if ENABLED(G29_RETRY_AND_RECOVER)
-  #define G29_MAX_RETRIES 3
+  #define G29_MAX_RETRIES 2
   #define G29_HALT_ON_FAILURE
   /**
    * Specify the GCODE commands that will be executed when leveling succeeds,
    * between attempts, and after the maximum number of retries have been tried.
    */
   #define G29_SUCCESS_COMMANDS "M117 Bed leveling done."
-  #define G29_RECOVER_COMMANDS "M117 Probe failed. Rewiping.\nG28\nG12 P0 S12 T0"
+  #define G29_RECOVER_COMMANDS "M117 Probe failed. Rewiping.\nG28"
   #define G29_FAILURE_COMMANDS "M117 Bed leveling failed.\nG0 Z10\nM300 P25 S880\nM300 P50 S0\nM300 P25 S880\nM300 P50 S0\nM300 P25 S880\nM300 P50 S0\nG4 S1"
 
 #endif
@@ -2512,7 +2514,7 @@
 //
 // G2/G3 Arc Support
 //
-#define ARC_SUPPORT                   // Requires ~3226 bytes
+//#define ARC_SUPPORT                   // Requires ~3226 bytes
 #if ENABLED(ARC_SUPPORT)
   #define MIN_ARC_SEGMENT_MM      0.1 // (mm) Minimum length of each arc segment
   #define MAX_ARC_SEGMENT_MM      1.0 // (mm) Maximum length of each arc segment
@@ -3876,7 +3878,7 @@
 /**
  * Disable all Volumetric extrusion options
  */
-//#define NO_VOLUMETRICS
+#define NO_VOLUMETRICS
 
 #if DISABLED(NO_VOLUMETRICS)
   /**
@@ -4643,7 +4645,7 @@
 //
 // M43 - display pin status, toggle pins, watch pins, watch endstops & toggle LED, test servo probe
 //
-//#define PINS_DEBUGGING
+#define PINS_DEBUGGING
 
 // Enable Tests that will run at startup and produce a report
 //#define MARLIN_TEST_BUILD
