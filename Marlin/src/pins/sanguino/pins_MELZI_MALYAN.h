@@ -28,7 +28,7 @@
 
 #define BOARD_INFO_NAME "Melzi (Malyan)"
 
-#if ENABLED(CR10_STOCKDISPLAY)
+//#if ENABLED(CR10_STOCKDISPLAY)
   #define BTN_ENC                             28
   #define BTN_EN1                             30
   #define BTN_EN2                             29
@@ -37,7 +37,22 @@
   #define LCD_PINS_EN                         16  // ST9720 DAT
   #define LCD_PINS_D4                         11  // ST9720 CLK
 
+  #define BEEPER_PIN      27
+  
   #define LCD_PINS_DEFINED
+//#endif
+
+// Alter timing for graphical display
+#if IS_U8GLIB_ST7920
+//  #ifndef BOARD_ST7920_DELAY_1
+    #define BOARD_ST7920_DELAY_1               125
+//  #endif
+//  #ifndef BOARD_ST7920_DELAY_2
+    #define BOARD_ST7920_DELAY_2               125
+//  #endif
+//  #ifndef BOARD_ST7920_DELAY_3
+    #define BOARD_ST7920_DELAY_3               125
+//  #endif
 #endif
 
 #include "pins_MELZI.h" // ... SANGUINOLOLU_12 ... SANGUINOLOLU_11
