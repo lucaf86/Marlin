@@ -1,0 +1,1 @@
+avrdude.exe -v -p atmega1284p -c arduino -P com4 -b 57600 -V -U flash:w:marlin-1.1.7.hex
