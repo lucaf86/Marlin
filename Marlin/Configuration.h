@@ -140,7 +140,7 @@
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
-//#define MACHINE_UUID "00000000-0000-0000-0000-000000000000"
+#define MACHINE_UUID "00000000-0000-0000-0000-000000000000"
 
 // @section stepper drivers
 
@@ -827,7 +827,7 @@
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #else
-  //#define BED_LIMIT_SWITCHING   // Keep the bed temperature within BED_HYSTERESIS of the target
+  #define BED_LIMIT_SWITCHING   // Keep the bed temperature within BED_HYSTERESIS of the target
 #endif
 
 /**
@@ -1569,7 +1569,7 @@
  * Magnetically Mounted Probe
  * For probes such as Euclid, Klicky, Klackender, etc.
  */
-//#define MAG_MOUNTED_PROBE
+// #define MAG_MOUNTED_PROBE
 #if ENABLED(MAG_MOUNTED_PROBE)
   #define PROBE_DEPLOY_FEEDRATE (83*60)  // (mm/min) Probe deploy speed
   #define PROBE_STOW_FEEDRATE   (83*60)  // (mm/min) Probe stow speed
@@ -1793,7 +1793,7 @@
 //#define PROBE_OFFSET_ZMAX  20   // (mm)
 
 // Enable the M48 repeatability test to test probe accuracy
-//#define Z_MIN_PROBE_REPEATABILITY_TEST
+#define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // Before deploy/stow pause for user confirmation
 #define PAUSE_BEFORE_DEPLOY_STOW
@@ -1819,7 +1819,7 @@
 //#define DELAY_BEFORE_PROBING 200  // (ms) To prevent vibrations from triggering piezo sensors
 
 // Require minimum nozzle and/or bed temperature for probing
-//#define PREHEAT_BEFORE_PROBING
+#define PREHEAT_BEFORE_PROBING
 #if ENABLED(PREHEAT_BEFORE_PROBING)
 //  #define PROBING_NOZZLE_TEMP 120   // (°C) Only applies to E0 at this time
   #define PROBING_BED_TEMP     50
@@ -2503,7 +2503,7 @@
 #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
 #if ENABLED(EEPROM_SETTINGS)
   //#define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
-  //#define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
+  #define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
 #endif
 
 // @section host
