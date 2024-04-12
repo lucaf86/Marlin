@@ -27,6 +27,7 @@
 #include "../gcode.h"
 #include "../../sd/cardreader.h"
 
+#if DISABLED(SDCARD_READONLY)
 /**
  * M30: Delete Media File
  *
@@ -39,5 +40,5 @@ void GcodeSuite::M30() {
     card.removeFile(parser.string_arg);
   }
 }
-
+#endif
 #endif // HAS_MEDIA
