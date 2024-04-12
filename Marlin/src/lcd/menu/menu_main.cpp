@@ -294,6 +294,7 @@ void menu_main() {
               GCODES_ITEM(MSG_ATTACH_USB_MEDIA, F("M21U")); // M21 Attach USB Media
             #endif
           #else                                             // - or -
+#if HAS_M22_RELEASE_SD_CARD
             ACTION_ITEM(MSG_RELEASE_MEDIA, []{              // M22 Release Media
               queue.inject(F("M22"));
               #if ENABLED(TFT_COLOR_UI)
@@ -302,6 +303,7 @@ void menu_main() {
                 ui.refresh();
               #endif
             });
+#endif
           #endif
           SUBMENU(MSG_MEDIA_MENU, MEDIA_MENU_GATEWAY);      // Media Menu (or Password First)
         }
@@ -417,6 +419,7 @@ void menu_main() {
             GCODES_ITEM(MSG_ATTACH_USB_MEDIA, F("M21U")); // M21 Attach USB Media
           #endif
         #else                                             // - or -
+#if HAS_M22_RELEASE_SD_CARD
           ACTION_ITEM(MSG_RELEASE_MEDIA, []{              // M22 Release Media
             queue.inject(F("M22"));
             #if ENABLED(TFT_COLOR_UI)
@@ -425,6 +428,7 @@ void menu_main() {
               ui.refresh();
             #endif
           });
+#endif
         #endif
         SUBMENU(MSG_MEDIA_MENU, MEDIA_MENU_GATEWAY);      // Media Menu (or Password First)
       }

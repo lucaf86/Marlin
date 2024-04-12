@@ -516,16 +516,19 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
       #if HAS_MEDIA
         case 20: M20(); break;                                    // M20: List SD card
         case 21: M21(); break;                                    // M21: Init SD card
+#if HAS_M22_RELEASE_SD_CARD
         case 22: M22(); break;                                    // M22: Release SD card
+#endif
         case 23: M23(); break;                                    // M23: Select file
         case 24: M24(); break;                                    // M24: Start SD print
         case 25: M25(); break;                                    // M25: Pause SD print
         case 26: M26(); break;                                    // M26: Set SD index
         case 27: M27(); break;                                    // M27: Get SD status
+  #if DISABLED(SDCARD_READONLY)
         case 28: M28(); break;                                    // M28: Start SD write
         case 29: M29(); break;                                    // M29: Stop SD write
         case 30: M30(); break;                                    // M30 <filename> Delete File
-
+#endif
         #if HAS_MEDIA_SUBCALLS
           case 32: M32(); break;                                  // M32: Select file and start SD print
         #endif

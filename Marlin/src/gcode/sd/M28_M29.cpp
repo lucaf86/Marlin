@@ -31,6 +31,7 @@
   #include "../queue.h"
 #endif
 
+#if DISABLED(SDCARD_READONLY)
 /**
  * M28: Start SD Write
  */
@@ -68,5 +69,5 @@ void GcodeSuite::M28() {
 void GcodeSuite::M29() {
   card.flag.saving = false;
 }
-
+#endif
 #endif // HAS_MEDIA

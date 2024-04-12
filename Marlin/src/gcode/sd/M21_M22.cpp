@@ -48,8 +48,10 @@ void GcodeSuite::M21() {
 /**
  * M22: Release SD Card
  */
+#if HAS_M22_RELEASE_SD_CARD
 void GcodeSuite::M22() {
   if (!IS_SD_PRINTING()) card.release();
 }
+#endif
 
 #endif // HAS_MEDIA

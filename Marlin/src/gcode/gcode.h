@@ -668,15 +668,19 @@ private:
   #if HAS_MEDIA
     static void M20();
     static void M21();
+#if HAS_M22_RELEASE_SD_CARD
     static void M22();
+#endif
     static void M23();
     static void M24();
     static void M25();
     static void M26();
     static void M27();
+#if DISABLED(SDCARD_READONLY)
     static void M28();
     static void M29();
     static void M30();
+#endif
   #endif
 
   static void M31();
