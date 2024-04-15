@@ -524,7 +524,7 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 25: M25(); break;                                    // M25: Pause SD print
         case 26: M26(); break;                                    // M26: Set SD index
         case 27: M27(); break;                                    // M27: Get SD status
-  #if DISABLED(SDCARD_READONLY)
+#if DISABLED(SDCARD_READONLY)
         case 28: M28(); break;                                    // M28: Start SD write
         case 29: M29(); break;                                    // M29: Stop SD write
         case 30: M30(); break;                                    // M30 <filename> Delete File
@@ -540,8 +540,9 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         #if ALL(SDCARD_SORT_ALPHA, SDSORT_GCODE)
           case 34: M34(); break;                                  // M34: Set SD card sorting options
         #endif
-
+#if DISABLED(SDCARD_READONLY)
         case 928: M928(); break;                                  // M928: Start SD write
+#endif
       #endif // HAS_MEDIA
 
       case 31: M31(); break;                                      // M31: Report time since the start of SD print or last M109
@@ -694,7 +695,7 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
       case 120: M120(); break;                                    // M120: Enable endstops
       case 121: M121(); break;                                    // M121: Disable endstops
 
-      #if HAS_PREHEAT
+      #if HAS_PREHEAT && ENABLED(HAS_M145_PREHEAT)
         case 145: M145(); break;                                  // M145: Set material heatup parameters
       #endif
 

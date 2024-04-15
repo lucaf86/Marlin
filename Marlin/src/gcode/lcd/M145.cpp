@@ -39,6 +39,7 @@
  *   B<bed temp>
  *   F<fan speed>
  */
+#if ENABLED(HAS_M145_PREHEAT)
 void GcodeSuite::M145() {
   const uint8_t material = (uint8_t)parser.intval('S');
   if (material >= PREHEAT_COUNT)
@@ -80,5 +81,6 @@ void GcodeSuite::M145_report(const bool forReplay/*=true*/) {
     );
   }
 }
+#endif
 
 #endif // HAS_PREHEAT

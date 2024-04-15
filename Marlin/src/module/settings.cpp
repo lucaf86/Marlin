@@ -4001,7 +4001,9 @@ void MarlinSettings::reset() {
     //
     // LCD Preheat Settings
     //
+    #if ENABLED(HAS_M145_PREHEAT)
     TERN_(HAS_PREHEAT, gcode.M145_report(forReplay));
+    #endif
 
     //
     // PID

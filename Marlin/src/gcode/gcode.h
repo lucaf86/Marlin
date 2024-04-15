@@ -835,8 +835,10 @@ private:
   #endif
 
   #if HAS_PREHEAT
+    #if ENABLED(HAS_M145_PREHEAT)
     static void M145();
     static void M145_report(const bool forReplay=true);
+    #endif
   #endif
 
   #if ENABLED(TEMPERATURE_UNITS_SUPPORT)
@@ -1257,7 +1259,7 @@ private:
     static void M910();
   #endif
 
-  #if HAS_MEDIA
+  #if HAS_MEDIA && DISABLED(SDCARD_READONLY)
     static void M928();
   #endif
 

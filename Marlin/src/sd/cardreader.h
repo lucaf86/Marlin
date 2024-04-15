@@ -126,8 +126,10 @@ public:
   static void manage_media();
 
   // SD Card Logging
+  #if DISABLED(SDCARD_READONLY)
   static void openLogFile(const char * const path);
   static void write_command(char * const buf);
+#endif
 
   #if DISABLED(NO_SD_AUTOSTART)     // Auto-Start auto#.g file handling
     static uint8_t autofile_index;  // Next auto#.g index to run, plus one. Ignored by autofile_check when zero.
@@ -144,10 +146,14 @@ public:
 
   // Basic file ops
   static void openFileRead(const char * const path, const uint8_t subcall=0);
+#if DISABLED(SDCARD_READONLY)
   static void openFileWrite(const char * const path);
+#endif
   static void closefile(const bool store_location=false);
   static bool fileExists(const char * const name);
+#if DISABLED(SDCARD_READONLY)
   static void removeFile(const char * const name);
+#endif
 
   static char* longest_filename() { return longFilename[0] ? longFilename : filename; }
   #if ENABLED(LONG_FILENAME_HOST_SUPPORT)
@@ -243,7 +249,9 @@ public:
   // File data operations
   static int16_t get()                            { int16_t out = (int16_t)file.read(); sdpos = file.curPosition(); return out; }
   static int16_t read(void *buf, uint16_t nbyte)  { return file.isOpen() ? file.read(buf, nbyte) : -1; }
+#if DISABLED(SDCARD_READONLY)
   static int16_t write(void *buf, uint16_t nbyte) { return file.isOpen() ? file.write(buf, nbyte) : -1; }
+#endif
   static void setIndex(const uint32_t index)      { file.seekSet((sdpos = index)); }
 
   // TODO: rename to diskIODriver()

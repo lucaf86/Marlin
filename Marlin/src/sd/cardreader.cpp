@@ -637,10 +637,12 @@ void CardReader::abortFilePrintNow(TERN_(SD_RESORT, const bool re_sort/*=false*/
   endFilePrintNow(TERN_(SD_RESORT, re_sort));
 }
 
+#if DISABLED(SDCARD_READONLY)
 void CardReader::openLogFile(const char * const path) {
   flag.logging = DISABLED(SDCARD_READONLY);
   IF_DISABLED(SDCARD_READONLY, openFileWrite(path));
 }
+#endif
 
 //
 // Get the root-relative DOS path of the selected file
@@ -747,13 +749,16 @@ void CardReader::openFileRead(const char * const path, const uint8_t subcall_typ
     openFailed(fname);
 }
 
+#if DISABLED(SDCARD_READONLY)
 inline void echo_write_to_file(const char * const fname) {
   SERIAL_ECHOLNPGM(STR_SD_WRITE_TO_FILE, fname);
 }
+#endif
 
 //
 // Open a file by DOS path for write
 //
+#if DISABLED(SDCARD_READONLY)
 void CardReader::openFileWrite(const char * const path) {
   if (!isMounted()) return;
 
@@ -779,6 +784,7 @@ void CardReader::openFileWrite(const char * const path) {
 
   openFailed(fname);
 }
+#endif
 
 //
 // Check if a file exists by absolute or workDir-relative path
@@ -809,6 +815,7 @@ bool CardReader::fileExists(const char * const path) {
 //
 // Delete a file by name in the working directory
 //
+#if DISABLED(SDCARD_READONLY)
 void CardReader::removeFile(const char * const name) {
   if (!isMounted()) return;
 
@@ -830,6 +837,7 @@ void CardReader::removeFile(const char * const name) {
       SERIAL_ECHOLNPGM("Deletion failed, File: ", fname, ".");
   #endif
 }
+#endif
 
 void CardReader::report_status(TERN_(QUIETER_AUTO_REPORT_SD_STATUS, const bool isauto/*=false*/)) {
   const bool has_job = isStillPrinting() || isPaused();
@@ -850,6 +858,7 @@ void CardReader::report_status(TERN_(QUIETER_AUTO_REPORT_SD_STATUS, const bool i
     SERIAL_ECHOLNPGM(STR_SD_NOT_PRINTING);
 }
 
+#if DISABLED(SDCARD_READONLY)
 void CardReader::write_command(char * const buf) {
   char *begin = buf,
        *npos = nullptr,
@@ -867,6 +876,7 @@ void CardReader::write_command(char * const buf) {
 
   if (file.writeError) SERIAL_ERROR_MSG(STR_SD_ERR_WRITE_TO_FILE);
 }
+#endif
 
 #if DISABLED(NO_SD_AUTOSTART)
   /**
