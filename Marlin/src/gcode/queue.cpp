@@ -664,7 +664,7 @@ void GCodeQueue::advance() {
   #endif
 
   #if HAS_MEDIA
-
+  #if DISABLED(SDCARD_READONLY)
     if (card.flag.saving) {
       char * const cmd = ring_buffer.peek_next_command_string();
       if (is_M29(cmd)) {
@@ -694,7 +694,7 @@ void GCodeQueue::advance() {
     }
     else
       gcode.process_next_command();
-
+  #endif
   #else
 
     gcode.process_next_command();

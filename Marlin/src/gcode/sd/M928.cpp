@@ -30,10 +30,11 @@
 /**
  * M928: Start SD Logging
  */
+#if DISABLED(SDCARD_READONLY)
 void GcodeSuite::M928() {
 
   card.openLogFile(parser.string_arg);
 
 }
-
+#endif
 #endif // HAS_MEDIA
