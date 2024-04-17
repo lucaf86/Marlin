@@ -129,7 +129,7 @@ public:
   #if DISABLED(SDCARD_READONLY)
   static void openLogFile(const char * const path);
   static void write_command(char * const buf);
-#endif
+  #endif
 
   #if DISABLED(NO_SD_AUTOSTART)     // Auto-Start auto#.g file handling
     static uint8_t autofile_index;  // Next auto#.g index to run, plus one. Ignored by autofile_check when zero.
