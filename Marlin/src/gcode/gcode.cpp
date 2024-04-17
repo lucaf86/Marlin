@@ -591,7 +591,9 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 107: M107(); break;                                  // M107: Fan Off
       #endif
 
+      #if ENABLED(HAS_M110_RESUME_PRINT)
       case 110: M110(); break;                                    // M110: Set Current Line Number
+      #endif
       case 111: M111(); break;                                    // M111: Set debug level
 
       #if DISABLED(EMERGENCY_PARSER)

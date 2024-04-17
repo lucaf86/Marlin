@@ -773,7 +773,9 @@ private:
     #endif
   #endif
 
+#if ENABLED(HAS_M110_RESUME_PRINT)
   static void M110();
+#endif
   static void M111();
 
   #if ENABLED(HOST_KEEPALIVE_FEATURE)
