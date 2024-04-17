@@ -33,6 +33,7 @@
  *   Report the last-processed (not last-received or last-enqueued) command
  *   (To purge the queue and resume from this line, the host should use 'M999' instead.)
  */
+#if ENABLED(HAS_M110_RESUME_PRINT)
 void GcodeSuite::M110() {
 
   if (parser.seenval('N'))
@@ -40,3 +41,5 @@ void GcodeSuite::M110() {
   else
     SERIAL_ECHOLNPGM(STR_LINE_NO, queue.get_current_line_number());
 }
+
+#endif
