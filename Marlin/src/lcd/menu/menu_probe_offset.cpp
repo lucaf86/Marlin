@@ -128,7 +128,9 @@ void prepare_for_probe_offset_wizard() {
 
 void goto_probe_offset_wizard() {
   ui.defer_status_screen();
+#if DISABLED(PAUSE_BEFORE_DEPLOY_STOW)
   set_all_unhomed();
+#endif
 
   // Store probe.offset.z for Case: Cancel
   z_offset_backup = probe.offset.z;
@@ -143,16 +145,31 @@ void goto_probe_offset_wizard() {
     set_bed_leveling_enabled(false);
   #endif
 
+#if DISABLED(PAUSE_BEFORE_DEPLOY_STOW)
   // Home all axes
   queue.inject_P(G28_STR);
+#endif
 
   ui.goto_screen([]{
+#if DISABLED(PAUSE_BEFORE_DEPLOY_STOW)
     _lcd_draw_homing();
+#endif
     if (all_axes_homed()) {
       z_offset_ref = 0;             // Set Z Value for Wizard Position to 0
       ui.goto_screen(prepare_for_probe_offset_wizard);
       ui.defer_status_screen();
     }
+#if ENABLED(PAUSE_BEFORE_DEPLOY_STOW)
+    else {
+      SString<30> msg;
+      //msg.setf(GET_EN_TEXT_F(MSG_HOME_AXES_FIRST));
+      //SERIAL_ECHO_START();
+      //msg.echoln();
+
+      msg.setf(GET_TEXT_F(MSG_HOME_AXES_FIRST));
+      ui.set_status(msg);
+    }
+#endif
   });
 
 }
