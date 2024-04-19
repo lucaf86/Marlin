@@ -42,7 +42,9 @@
 #endif
 #undef en
 
+#ifndef MEDIA_TYPE_EN
 #define MEDIA_TYPE_EN "Media"
+#endif
 
 #ifndef PREHEAT_1_LABEL
   #define PREHEAT_1_LABEL ""
@@ -156,7 +158,7 @@ namespace LanguageNarrow_en {
   LSTR MSG_PREHEAT_M_SETTINGS             = _UxGT("Preheat $ Conf");
 
   LSTR MSG_PREHEAT_HOTEND                 = _UxGT("Preheat Hotend");
-  LSTR MSG_PREHEAT_CUSTOM                 = _UxGT("Preheat Custom");
+  LSTR MSG_PREHEAT_CUSTOM                 = _UxGT("Preheat");
   LSTR MSG_PREHEAT                        = _UxGT("Preheat");
   LSTR MSG_COOLDOWN                       = _UxGT("Cooldown");
 
