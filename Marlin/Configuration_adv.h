@@ -4136,6 +4136,8 @@
 
 // @section custom config menu
 
+#define NO_M118_SERIAL_MSG // disables M118 G-code
+
 // Custom Menu: Configuration Menu
 //#define CUSTOM_MENU_CONFIG
 #if ENABLED(CUSTOM_MENU_CONFIG)
