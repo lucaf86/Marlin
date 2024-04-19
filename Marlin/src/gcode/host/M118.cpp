@@ -32,6 +32,7 @@
  *        0 : Announce to all ports
  *      1-9 : Serial ports 1 to 9
  */
+#if DISABLED(NO_M118_SERIAL_MSG)
 void GcodeSuite::M118() {
   bool hasE = false, hasA = false;
   #if HAS_MULTI_SERIAL
@@ -58,3 +59,4 @@ void GcodeSuite::M118() {
   if (hasA) SERIAL_ECHOPGM("//");
   SERIAL_ECHOLN(p);
 }
+#endif

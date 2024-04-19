@@ -85,7 +85,7 @@ void GcodeSuite::M502() {
 
 #endif // !DISABLE_M503
 
-#if ENABLED(EEPROM_SETTINGS)
+#if ENABLED(EEPROM_SETTINGS) && DISABLED(DISABLE_M504_EEPROM_VALIDATE)
 
   #if ENABLED(MARLIN_DEV_MODE)
     #include "../../libs/hex_print.h"

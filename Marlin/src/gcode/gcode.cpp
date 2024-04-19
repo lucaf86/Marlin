@@ -692,7 +692,9 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
 
       case 117: TERN_(HAS_STATUS_MESSAGE, M117()); break;         // M117: Set LCD message text, if possible
 
+      #if DISABLED(NO_M118_SERIAL_MSG)
       case 118: M118(); break;                                    // M118: Display a message in the host console
+      #endif
       case 119: M119(); break;                                    // M119: Report endstop states
       case 120: M120(); break;                                    // M120: Enable endstops
       case 121: M121(); break;                                    // M121: Disable endstops
@@ -926,7 +928,7 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
       #if DISABLED(DISABLE_M503)
         case 503: M503(); break;                                  // M503: print settings currently in memory
       #endif
-      #if ENABLED(EEPROM_SETTINGS)
+      #if ENABLED(EEPROM_SETTINGS) && DISABLED(DISABLE_M504_EEPROM_VALIDATE)
         case 504: M504(); break;                                  // M504: Validate EEPROM contents
       #endif
 

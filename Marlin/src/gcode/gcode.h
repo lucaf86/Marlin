@@ -792,7 +792,9 @@ private:
     static void M117();
   #endif
 
+  #if DISABLED(NO_M118_SERIAL_MSG)
   static void M118();
+  #endif
   static void M119();
   static void M120();
   static void M121();
@@ -1099,7 +1101,7 @@ private:
   #if DISABLED(DISABLE_M503)
     static void M503();
   #endif
-  #if ENABLED(EEPROM_SETTINGS)
+  #if ENABLED(EEPROM_SETTINGS) && DISABLED(DISABLE_M504_EEPROM_VALIDATE)
     static void M504();
   #endif
 
