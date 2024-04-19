@@ -43,11 +43,12 @@
 #undef en
 
 #if HAS_SDCARD && !HAS_USB_FLASH_DRIVE
-  #define MEDIA_TYPE_EN "SD Card"
+  #define MEDIA_TYPE_EN "Media"
 #elif HAS_USB_FLASH_DRIVE && !HAS_SDCARD
   #define MEDIA_TYPE_EN "USB Drive"
 #else
   #define MEDIA_TYPE_EN "Media"
+#endif
 #endif
 
 #ifndef PREHEAT_1_LABEL
@@ -173,7 +174,7 @@ namespace LanguageNarrow_en {
   LSTR MSG_PREHEAT_M_SETTINGS             = _UxGT("Preheat $ Conf");
 
   LSTR MSG_PREHEAT_HOTEND                 = _UxGT("Preheat Hotend");
-  LSTR MSG_PREHEAT_CUSTOM                 = _UxGT("Preheat Custom");
+  LSTR MSG_PREHEAT_CUSTOM                 = _UxGT("Preheat");
   LSTR MSG_PREHEAT                        = _UxGT("Preheat");
   LSTR MSG_COOLDOWN                       = _UxGT("Cooldown");
 
