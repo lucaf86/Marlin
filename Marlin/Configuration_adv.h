@@ -4687,6 +4687,6 @@
 //#define OPTIBOOT_RESET_REASON
 
 // Shrink the build for smaller boards by sacrificing some serial feedback
-#define MARLIN_SMALL_BUILD
+//#define MARLIN_SMALL_BUILD
 
 //#define HAS_M110_RESUME_PRINT
