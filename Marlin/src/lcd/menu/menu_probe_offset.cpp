@@ -127,51 +127,52 @@ void prepare_for_probe_offset_wizard() {
 }
 
 void goto_probe_offset_wizard() {
-  ui.defer_status_screen();
-#if DISABLED(PAUSE_BEFORE_DEPLOY_STOW)
-  set_all_unhomed();
-#endif
-
-  // Store probe.offset.z for Case: Cancel
-  z_offset_backup = probe.offset.z;
-
-  #ifdef PROBE_OFFSET_WIZARD_START_Z
-    probe.offset.z = PROBE_OFFSET_WIZARD_START_Z;
-  #endif
-
-  // Store Bed-Leveling-State and disable
-  #if HAS_LEVELING
-    menu_leveling_was_active = planner.leveling_active;
-    set_bed_leveling_enabled(false);
-  #endif
-
-#if DISABLED(PAUSE_BEFORE_DEPLOY_STOW)
-  // Home all axes
-  queue.inject_P(G28_STR);
-#endif
-
-  ui.goto_screen([]{
-#if DISABLED(PAUSE_BEFORE_DEPLOY_STOW)
-    _lcd_draw_homing();
-#endif
-    if (all_axes_homed()) {
-      z_offset_ref = 0;             // Set Z Value for Wizard Position to 0
-      ui.goto_screen(prepare_for_probe_offset_wizard);
-      ui.defer_status_screen();
-    }
 #if ENABLED(PAUSE_BEFORE_DEPLOY_STOW)
-    else {
-      SString<30> msg;
-      //msg.setf(GET_EN_TEXT_F(MSG_HOME_AXES_FIRST));
-      //SERIAL_ECHO_START();
-      //msg.echoln();
-
-      msg.setf(GET_TEXT_F(MSG_HOME_AXES_FIRST));
-      ui.set_status(msg);
-    }
+  if (!all_axes_homed()) {
+    FSTR_P const msg_fstr = GET_TEXT_F(MSG_HOME_AXES_FIRST);
+    ui.return_to_status();       // To display the new status message
+    ui.set_max_status(msg_fstr);
+  }
+  else {
 #endif
-  });
 
+    ui.defer_status_screen();
+  #if DISABLED(PAUSE_BEFORE_DEPLOY_STOW)
+    set_all_unhomed();
+  #endif
+
+    // Store probe.offset.z for Case: Cancel
+    z_offset_backup = probe.offset.z;
+
+    #ifdef PROBE_OFFSET_WIZARD_START_Z
+      probe.offset.z = PROBE_OFFSET_WIZARD_START_Z;
+    #endif
+
+    // Store Bed-Leveling-State and disable
+    #if HAS_LEVELING
+      menu_leveling_was_active = planner.leveling_active;
+      set_bed_leveling_enabled(false);
+    #endif
+
+  #if DISABLED(PAUSE_BEFORE_DEPLOY_STOW)
+    // Home all axes
+    queue.inject_P(G28_STR);
+  #endif
+
+    ui.goto_screen([]{
+  #if DISABLED(PAUSE_BEFORE_DEPLOY_STOW)
+      _lcd_draw_homing();
+  #endif
+      if (all_axes_homed()) {
+        z_offset_ref = 0;             // Set Z Value for Wizard Position to 0
+        ui.goto_screen(prepare_for_probe_offset_wizard);
+        ui.defer_status_screen();
+      }
+    });
+
+#if ENABLED(PAUSE_BEFORE_DEPLOY_STOW)
+  }
+#endif
 }
 
 #endif // PROBE_OFFSET_WIZARD
