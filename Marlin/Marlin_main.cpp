@@ -4465,8 +4465,12 @@ inline void gcode_G28(const bool always_home_all) {
 
   // Disable the leveling matrix before homing
   #if HAS_LEVELING
-    #if ENABLED(RESTORE_LEVELING_AFTER_G28)
-      const bool leveling_was_active = planner.leveling_active;
+    #if CAN_SET_LEVELING_AFTER_G28
+      #if ENABLED(RESTORE_LEVELING_AFTER_G28)
+        const bool leveling_restore_state = planner.leveling_active;
+      #else
+        const bool leveling_restore_state = true;
+      #endif
     #endif
     set_bed_leveling_enabled(false);
   #endif
@@ -4626,8 +4630,8 @@ inline void gcode_G28(const bool always_home_all) {
     do_blocking_move_to_z(delta_clip_start_height);
   #endif
 
-  #if ENABLED(RESTORE_LEVELING_AFTER_G28)
-    set_bed_leveling_enabled(leveling_was_active);
+  #if CAN_SET_LEVELING_AFTER_G28
+    if (leveling_restore_state) { set_bed_leveling_enabled(); }
   #endif
 
   clean_up_after_endstop_or_probe_move();
@@ -12058,6 +12062,7 @@ inline void gcode_M502() {
 
 #endif // HAS_TRINAMIC
 
+#if HAS_MOTOR_CURRENT_SPI || HAS_MOTOR_CURRENT_PWM || HAS_MOTOR_CURRENT_I2C || HAS_MOTOR_CURRENT_DAC
 /**
  * M907: Set digital trimpot motor current using axis codes X, Y, Z, E, B, S
  */
@@ -12127,6 +12132,7 @@ inline void gcode_M907() {
   #endif
 
 #endif // HAS_DIGIPOTSS || DAC_STEPPER_CURRENT
+#endif //#if HAS_MOTOR_CURRENT_SPI || HAS_MOTOR_CURRENT_PWM || HAS_MOTOR_CURRENT_I2C || HAS_MOTOR_CURRENT_DAC
 
 #if HAS_MICROSTEPS
 
@@ -12200,6 +12206,7 @@ inline void gcode_M907() {
   }
 #endif // HAS_CASE_LIGHT
 
+#if ENABLED(CASE_LIGHT_ENABLE)
 /**
  * M355: Turn case light on/off and set brightness
  *
@@ -12234,6 +12241,7 @@ inline void gcode_M355() {
     SERIAL_ERRORLNPGM(MSG_ERR_M355_NONE);
   #endif // HAS_CASE_LIGHT
 }
+#endif
 
 #if ENABLED(MIXING_EXTRUDER)
 
@@ -13178,7 +13186,9 @@ void process_parsed_command() {
         case 351: gcode_M351(); break;                            // M351: Toggle MS1 MS2 pins directly, S# determines MS1 or MS2, X# sets the pin high/low.
       #endif
 
-      case 355: gcode_M355(); break;                              // M355: Set Case Light brightness
+      #if ENABLED(CASE_LIGHT_ENABLE)
+        case 355: gcode_M355(); break;                              // M355: Set Case Light brightness
+      #endif
 
       #if ENABLED(MORGAN_SCARA)
         case 360: if (gcode_M360()) return; break;                // M360: SCARA Theta pos1
@@ -13282,13 +13292,15 @@ void process_parsed_command() {
         case 900: gcode_M900(); break;                            // M900: Set Linear Advance K factor
       #endif
 
-      case 907: gcode_M907(); break;                              // M907: Set Digital Trimpot Motor Current using axis codes.
+      #if HAS_MOTOR_CURRENT_SPI || HAS_MOTOR_CURRENT_PWM || HAS_MOTOR_CURRENT_I2C || HAS_MOTOR_CURRENT_DAC
+        case 907: gcode_M907(); break;                              // M907: Set Digital Trimpot Motor Current using axis codes.
 
-      #if HAS_DIGIPOTSS || ENABLED(DAC_STEPPER_CURRENT)
-        case 908: gcode_M908(); break;                            // M908: Direct Control Digital Trimpot
-        #if ENABLED(DAC_STEPPER_CURRENT)
-          case 909: gcode_M909(); break;                          // M909: Print Digipot/DAC current value (As with Printrbot RevF)
-          case 910: gcode_M910(); break;                          // M910: Commit Digipot/DAC value to External EEPROM (As with Printrbot RevF)
+        #if HAS_DIGIPOTSS || ENABLED(DAC_STEPPER_CURRENT)
+          case 908: gcode_M908(); break;                            // M908: Direct Control Digital Trimpot
+          #if ENABLED(DAC_STEPPER_CURRENT)
+            case 909: gcode_M909(); break;                          // M909: Print Digipot/DAC current value (As with Printrbot RevF)
+            case 910: gcode_M910(); break;                          // M910: Commit Digipot/DAC value to External EEPROM (As with Printrbot RevF)
+          #endif
         #endif
       #endif
 
