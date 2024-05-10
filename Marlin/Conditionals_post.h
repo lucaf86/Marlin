@@ -1281,6 +1281,10 @@
   #endif
 #endif
 
+#ifndef DEFAULT_LEVELING_FADE_HEIGHT
+  #define DEFAULT_LEVELING_FADE_HEIGHT 0.0
+#endif
+
 /**
  * Buzzer/Speaker
  */

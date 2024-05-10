@@ -1861,7 +1861,7 @@ void MarlinSettings::reset() {
   //
 
   #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
-    new_z_fade_height = 0.0;
+    new_z_fade_height = DEFAULT_LEVELING_FADE_HEIGHT;
   #endif
 
   #if HAS_LEVELING
