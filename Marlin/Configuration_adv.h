@@ -487,6 +487,8 @@
   #define ULTIPANEL_FEEDMULTIPLY  // Comment to disable setting feedrate multiplier via encoder
 #endif
 
+#define FINE_MANUAL_MOVE 0.025f    // (mm) Smallest manual move (< 0.1mm) applying to Z on most machines
+
 // @section extras
 
 // minimum time in microseconds that a movement needs to take if the buffer is emptied.
