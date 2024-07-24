@@ -621,7 +621,11 @@
  */
                                       // Standard M150 17T MXL on X and Y
 // original for Malyan M150 // #define DEFAULT_AXIS_STEPS_PER_UNIT   { 3200/34.544, 3200/34.544, 1600, 103.00 }
+#ifdef TITAN_AERO_EXTRUDER
+    #define DEFAULT_AXIS_STEPS_PER_UNIT   { 3200/34.544, 3200/34.544, 1600, 394.00 }
+#else
 #define DEFAULT_AXIS_STEPS_PER_UNIT   { 3200/34.544, 3200/34.544, 1600, 100.00 }
+#endif
 
 // Other common M150 values:
 // 16T MXL on X and Y
@@ -926,7 +930,11 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR true
+#ifdef TITAN_AERO_EXTRUDER
+    #define INVERT_E0_DIR false
+#else
+    #define INVERT_E0_DIR true
+#endif
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
