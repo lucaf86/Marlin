@@ -955,3 +955,10 @@
     #warning "SMOOTH_LIN_ADVANCE with MIXING_EXTRUDER is untested. Use with caution."
   #endif
 #endif
+
+/**
+ * Peltier with PIDTEMPBED
+ */
+#if ALL(PELTIER_BED, PIDTEMPBED)
+  #warning "PELTIER_BED with PIDTEMPBED requires extra circuitry. Use with caution."
+#endif
