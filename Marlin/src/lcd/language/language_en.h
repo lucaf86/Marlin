@@ -49,7 +49,6 @@
 #else
   #define MEDIA_TYPE_EN "Media"
 #endif
-#endif
 
 #ifndef PREHEAT_1_LABEL
   #define PREHEAT_1_LABEL ""

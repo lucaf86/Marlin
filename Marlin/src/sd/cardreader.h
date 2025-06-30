@@ -320,7 +320,8 @@ public:
   static bool eof()              { return getIndex() >= getFileSize(); }
 
   // File data operations
-
+  static int16_t get()                            { int16_t out = (int16_t)myfile.read(); sdpos = myfile.curPosition(); return out; }
+  static int16_t read(void *buf, uint16_t nbyte)  { return myfile.isOpen() ? myfile.read(buf, nbyte) : -1; }
 #if DISABLED(SDCARD_READONLY)
   static int16_t write(void *buf, uint16_t nbyte) { return myfile.isOpen() ? myfile.write(buf, nbyte) : -1; }
 #endif
