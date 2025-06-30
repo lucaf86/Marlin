@@ -1347,7 +1347,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 700, 700, 100, 50000 }
+#define DEFAULT_MAX_ACCELERATION      { 700, 700, 100, 5000 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1780,7 +1780,7 @@
 #define Z_CLEARANCE_BETWEEN_PROBES  5 // (mm) Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE     5 // (mm) Z Clearance between multiple probes
 #define Z_PROBE_ERROR_TOLERANCE     3 // (mm) Tolerance for early trigger (<= -probe.offset.z + ZPET)
-#define Z_AFTER_PROBING           5 // (mm) Z position after probing is done
+#define Z_AFTER_PROBING           10 // (mm) Z position after probing is done
 
 #define Z_PROBE_LOW_POINT          (-1*(Z_MAX_POS)) // (mm) Farthest distance below the trigger-point to go before stopping
 
@@ -1853,7 +1853,7 @@
 //#define DISABLE_W
 
 // Turn off the display blinking that warns about possible accuracy reduction
-#define DISABLE_REDUCED_ACCURACY_WARNING // saves 68 bytes, use if really needed to save space! 
+//#define DISABLE_REDUCED_ACCURACY_WARNING // saves 68 bytes, use if really needed to save space! 
 
 // @section extruder
 
@@ -1936,14 +1936,14 @@
 
 // The size of the printable area
 #define X_BED_SIZE 202
-#define Y_BED_SIZE 215
+#define Y_BED_SIZE 205
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS Y_BED_SIZE
+#define Y_MAX_POS (Y_BED_SIZE +10)
 #define Z_MAX_POS 180
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
@@ -2328,7 +2328,7 @@
   //===========================================================================
 
   #define MESH_INSET 10          // Set Mesh bounds as an inset region of the bed
-  #define GRID_MAX_POINTS_X 5
+  #define GRID_MAX_POINTS_X 7
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   //#define MESH_G28_REST_ORIGIN // After homing all axes ('G28' or 'G28 XYZ') rest Z at Z_MIN_POS
